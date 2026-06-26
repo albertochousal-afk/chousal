@@ -1,96 +1,904 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="gl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chousal</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chousal | Marca persoal e proxectos artesanais</title>
+  <meta name="description" content="Web persoal de Alberto Chousal, consultor de turismo e creador dos proxectos artesanais Chousal e Vilaverde desde Galicia." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-dark: #061410;
+      --bg-dark-2: #0d1f1b;
+      --surface: #f7f5ef;
+      --surface-soft: #edf0e6;
+      --surface-tint: #e6ebd9;
+      --text: #10201c;
+      --text-soft: #4d5b57;
+      --line: rgba(136, 153, 128, 0.28);
+      --primary: #a3b642;
+      --primary-deep: #7e9328;
+      --white: #f9f8f3;
+      --max: 1180px;
+      --shadow: 0 18px 40px rgba(5, 18, 15, 0.12);
+      --radius: 28px;
+      --transition: 240ms ease;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: white;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--surface);
+      line-height: 1.65;
     }
 
-    header {
-      height: 100vh;
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+
+    .container {
+      width: min(calc(100% - 2rem), var(--max));
+      margin: 0 auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+    }
+
+    .skip-link:focus {
+      left: 1rem;
+      top: 1rem;
+      z-index: 9999;
+      background: var(--white);
+      color: var(--text);
+      padding: .75rem 1rem;
+      border-radius: 12px;
+    }
+
+    .site-header {
+      position: absolute;
+      inset: 0 0 auto 0;
+      z-index: 20;
+      padding: 1.4rem 0;
+    }
+
+    .nav-wrap {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      text-align: center;
-      padding: 20px;
+      justify-content: space-between;
+      gap: 1rem;
     }
 
-    h1 {
-      font-size: 3rem;
-      margin: 0;
-      background: linear-gradient(90deg, #38bdf8, #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      color: var(--primary);
     }
 
-    p {
-      color: #94a3b8;
-      font-size: 1.2rem;
+    .brand svg { width: 36px; height: 36px; }
+
+    .brand-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .nav {
+      display: flex;
+      gap: 2rem;
+      color: rgba(249,248,243,.92);
+      font-size: .98rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      transition: color var(--transition);
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible { color: var(--primary); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 74% 28%, rgba(163,182,66,.18), transparent 22%),
+        radial-gradient(circle at 20% 10%, rgba(163,182,66,.08), transparent 18%),
+        linear-gradient(120deg, rgba(6,20,16,1) 0%, rgba(5,16,14,1) 42%, rgba(10,31,27,1) 100%);
+      color: var(--white);
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding: 7rem 0 10rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      color: var(--primary);
+      font-size: .92rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 46px;
+      height: 1px;
+      background: currentColor;
+      opacity: .8;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      line-height: .98;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.2rem, 8vw, 6.4rem);
+      margin-bottom: 1.35rem;
+      max-width: 10ch;
+    }
+
+    .hero h1 span { color: var(--primary); }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(249,248,243,.83);
+      max-width: 41rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: .95rem 1.4rem;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: transform var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #18210b;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      background: var(--primary-deep);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      border-color: rgba(249,248,243,.28);
+      color: var(--white);
+      background: rgba(255,255,255,.03);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover,
+    .btn-secondary:focus-visible {
+      border-color: rgba(163,182,66,.6);
+      color: var(--primary);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 1.8rem;
+      color: rgba(249,248,243,.70);
+      font-size: .95rem;
+    }
+
+    .hero-card {
+      position: relative;
+      margin-left: auto;
+      width: min(100%, 510px);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      border: 1px solid rgba(163,182,66,.22);
+      border-radius: 36px;
+      padding: 2rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: 1rem;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 28px;
+      pointer-events: none;
+    }
+
+    .card-label {
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: .82rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .hero-card h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .hero-card p {
+      margin-bottom: 1.35rem;
+      font-size: 1rem;
+    }
+
+    .card-points {
+      display: grid;
+      gap: .95rem;
+      color: rgba(249,248,243,.84);
+    }
+
+    .card-points li {
+      list-style: none;
+      display: flex;
+      gap: .8rem;
+      align-items: flex-start;
+    }
+
+    .card-points li::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--primary);
+      margin-top: .45rem;
+      flex: 0 0 auto;
+      box-shadow: 0 0 0 6px rgba(163,182,66,.10);
+    }
+
+    .wave {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      width: 100%;
+      color: var(--surface);
     }
 
     section {
-      padding: 60px 20px;
-      max-width: 800px;
-      margin: auto;
+      position: relative;
+      padding: 5.5rem 0;
     }
 
-    h2 {
-      color: #38bdf8;
+    .section-head {
+      max-width: 46rem;
+      margin-bottom: 2.5rem;
     }
 
-    .card {
-      background: rgba(30, 41, 59, 0.8);
+    .section-head .eyebrow {
+      margin-bottom: .9rem;
+      color: var(--primary-deep);
+    }
+
+    .section-head h2 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+      font-size: 1.05rem;
+    }
+
+    .about-grid,
+    .contact-grid {
+      display: grid;
+      gap: 2rem;
+      align-items: center;
+      grid-template-columns: 1fr .95fr;
+    }
+
+    .text-block p + p { margin-top: 1rem; }
+
+    .signature-card,
+    .project-card,
+    .visit-card,
+    .contact-card {
+      background: rgba(255,255,255,.76);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .signature-card {
+      padding: 2rem;
+      background: linear-gradient(180deg, rgba(255,255,255,.86), rgba(245,246,239,.92));
+    }
+
+    .signature-art {
+      aspect-ratio: 16 / 10;
+      border-radius: 24px;
+      padding: 1.5rem;
+      background: linear-gradient(180deg, #f4f3eb 0%, #eef0e6 100%);
+      border: 1px solid rgba(131,150,44,.18);
+      display: grid;
+      place-items: center;
+    }
+
+    .project-band {
+      background: var(--surface-soft);
+    }
+
+    .projects-stack {
+      display: grid;
+      gap: 1.75rem;
+    }
+
+    .project-card {
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: .88fr 1.12fr;
+    }
+
+    .project-visual {
+      min-height: 100%;
+      background: linear-gradient(160deg, #eff0e4 0%, #dce4c0 100%);
+      padding: 2rem;
+      display: grid;
+      place-items: center;
+      border-right: 1px solid var(--line);
+    }
+
+    .project-card.cider .project-visual {
+      background: linear-gradient(160deg, #f0f1e3 0%, #d8e0b6 100%);
+    }
+
+    .project-content {
+      padding: 2.3rem;
+    }
+
+    .project-content h3 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      margin-bottom: .9rem;
+    }
+
+    .project-content p {
+      color: var(--text-soft);
+      margin-bottom: 1rem;
+    }
+
+    .mini-title {
+      font-size: 1rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--primary-deep);
+      font-weight: 700;
+      margin: 1.5rem 0 .8rem;
+    }
+
+    .detail-list {
+      display: grid;
+      gap: .8rem;
+      margin: 1rem 0 1.35rem;
+    }
+
+    .detail-list li {
+      list-style: none;
+      display: flex;
+      gap: .75rem;
+      color: var(--text-soft);
+    }
+
+    .detail-list li::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--primary);
+      margin-top: .5rem;
+      flex: 0 0 auto;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .7rem;
+      margin: 1.2rem 0 1.4rem;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: .55rem .9rem;
+      background: rgba(163,182,66,.12);
+      color: #53601b;
+      font-size: .92rem;
+      font-weight: 600;
+    }
+
+    .visit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .visit-card {
+      padding: 1.6rem;
+      background: rgba(255,255,255,.82);
+    }
+
+    .visit-card h4 {
+      font-size: 2rem;
+      margin-bottom: .8rem;
+      color: var(--text);
+    }
+
+    .visit-card p { color: var(--text-soft); }
+
+    .contact-wrap {
+      background:
+        radial-gradient(circle at 70% 25%, rgba(163,182,66,.16), transparent 26%),
+        linear-gradient(120deg, rgba(6,20,16,1) 0%, rgba(9,29,25,1) 100%);
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    .contact-wrap .section-head h2,
+    .contact-wrap .section-head p,
+    .contact-wrap .eyebrow { color: var(--white); }
+    .contact-wrap .eyebrow { color: var(--primary); }
+
+    .contact-card {
+      background: rgba(255,255,255,.06);
+      border-color: rgba(163,182,66,.18);
       backdrop-filter: blur(10px);
-      padding: 20px;
-      border-radius: 12px;
-      margin-top: 10px;
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: transform 0.2s ease;
+      padding: 2rem;
     }
 
-    .card:hover {
-      transform: scale(1.02);
+    .contact-list {
+      display: grid;
+      gap: 1rem;
+      color: rgba(249,248,243,.86);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      min-height: 44px;
+    }
+
+    .contact-item strong {
+      display: block;
+      color: var(--white);
+      font-size: .98rem;
+    }
+
+    .contact-item span,
+    .contact-item a {
+      color: rgba(249,248,243,.72);
+      font-size: .94rem;
+    }
+
+    .contact-item a:hover,
+    .contact-item a:focus-visible { color: var(--primary); }
+
+    .icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(163,182,66,.12);
+      border: 1px solid rgba(163,182,66,.2);
+      color: var(--primary);
+      flex: 0 0 auto;
+    }
+
+    .site-footer {
+      border-top: 1px solid rgba(163,182,66,.14);
+      background: #061410;
+      color: rgba(249,248,243,.72);
+      padding: 1.5rem 0;
+      font-size: .92rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .muted { color: var(--text-soft); }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid,
+      .project-card,
+      .visit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 8.5rem;
+        min-height: auto;
+      }
+
+      .hero-card { margin-left: 0; }
+      .nav { gap: 1rem; font-size: .92rem; }
+    }
+
+    @media (max-width: 720px) {
+      .nav-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav {
+        gap: .9rem 1.2rem;
+        justify-content: flex-start;
+      }
+
+      .hero h1 { max-width: 8ch; }
+      section { padding: 4.5rem 0; }
+      .project-content,
+      .project-visual,
+      .signature-card,
+      .contact-card,
+      .hero-card,
+      .visit-card { padding: 1.4rem; }
+      .container { width: min(calc(100% - 1.25rem), var(--max)); }
     }
   </style>
 </head>
-
 <body>
+  <a class="skip-link" href="#contido">Saltar ao contido</a>
 
-<header>
-  <h1>Hola, soy Chousal</h1>
-  <p>Bienvenido a mi web personal</p>
-</header>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#inicio" aria-label="Ir ao inicio de Chousal">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M22 14C15.373 14 10 19.373 10 26C10 32.627 15.373 38 22 38C28.627 38 34 32.627 34 26C34 19.373 28.627 14 22 14Z" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M42 26C35.373 26 30 31.373 30 38C30 44.627 35.373 50 42 50C48.627 50 54 44.627 54 38C54 31.373 48.627 26 42 26Z" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M42 14C35.373 14 30 19.373 30 26C30 32.627 35.373 38 42 38C48.627 38 54 32.627 54 26C54 19.373 48.627 14 42 14Z" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M22 26C15.373 26 10 31.373 10 38C10 44.627 15.373 50 22 50C28.627 50 34 44.627 34 38C34 31.373 28.627 26 22 26Z" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M32 10V54" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
+        </svg>
+        <span class="brand-text">Chousal</span>
+      </a>
 
-<section>
-  <h2>Sobre mí</h2>
-  <div class="card">
-    Soy un desarrollador creando mi primera web con GitHub Pages.
-  </div>
-</section>
+      <nav class="nav" aria-label="Principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#sobre-min">Sobre min</a>
+        <a href="#proxectos">Proxectos</a>
+        <a href="#visitas">A bodega</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
 
-<section>
-  <h2>Proyectos</h2>
-  <div class="card" style="font-size: 1.1rem; line-height: 1.6;">
-    👋 <strong>¡Hola, soy Chousal!</strong><br><br>
-    Muy pronto iré publicando aquí los proyectos en los que estoy trabajando.<br>
-    Esta web será el lugar donde muestre mis ideas, experimentos y creaciones.
-  </div>
-</section>
+  <main id="contido">
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Marca persoal · territorio · elaboración artesanal</span>
+          <h1>Ola, son <span>Alberto Chousal</span></h1>
+          <p>
+            Consultor de turismo, creador de contidos e impulsor de proxectos artesanais con raíz no territorio.
+            Nesta web comparto o meu traballo, a miña visión e dúas iniciativas moi persoais: o viño branco Chousal e a sidra Vilaverde.
+          </p>
 
-<section>
-  <h2>Contacto</h2>
-  <div class="card">
-    📧 Disponible pronto
-  </div>
-</section>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#proxectos">Descubrir os proxectos</a>
+            <a class="btn btn-secondary" href="#contacto">Contactar</a>
+          </div>
 
+          <div class="hero-meta" aria-label="Resumo profesional">
+            <span>Ourense · Galicia</span>
+            <span>Turismo · comunicación · proxectos con identidade</span>
+            <span>Proceso artesanal e coidado en cada detalle</span>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Proposta de valor">
+          <div class="card-label">Posicionamento</div>
+          <h2>Proxectos con lugar, historia e intención.</h2>
+          <p>
+            Interésame crear iniciativas honestas, pequenas e ben feitas, nas que o territorio,
+            a identidade e o proceso teñan tanto valor coma o resultado final.
+          </p>
+          <ul class="card-points">
+            <li>Unha marca persoal vencellada á comunicación, ao turismo e ao mundo rural.</li>
+            <li>Dous proxectos artesanais nacidos desde Galicia: o viño Chousal e a sidra Vilaverde.</li>
+            <li>Unha maneira de facer lenta, coidada e baseada no respecto polo produto e pola orixe.</li>
+          </ul>
+        </aside>
+      </div>
+
+      <svg class="wave" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">
+        <path fill="currentColor" d="M0,96L60,85.3C120,75,240,53,360,58.7C480,64,600,96,720,101.3C840,107,960,85,1080,74.7C1200,64,1320,64,1380,64L1440,64L1440,160L1380,160C1320,160,1200,160,1080,160C960,160,840,160,720,160C600,160,480,160,360,160C240,160,120,160,60,160L0,160Z"></path>
+      </svg>
+    </section>
+
+    <section id="sobre-min">
+      <div class="container about-grid">
+        <div>
+          <div class="section-head">
+            <span class="eyebrow">Sobre min</span>
+            <h2>Un perfil profesional conectado co territorio e cos proxectos con alma</h2>
+            <p>
+              Traballo entre turismo, comunicación e desenvolvemento de ideas con identidade propia.
+              Gústame construír propostas ben pensadas, próximas e coherentes, nas que o lugar e as persoas teñan presenza real.
+            </p>
+          </div>
+
+          <div class="text-block muted">
+            <p>
+              Esta web nace como un espazo de presentación profesional, pero tamén como unha forma de dar visibilidade a proxectos que representan a miña maneira de entender o traballo: pequena escala, atención ao detalle e vínculo co territorio.
+            </p>
+            <p>
+              Aquí conviven a miña faceta profesional e dúas iniciativas moi persoais, feitas con tempo, curiosidade e moito agarimo: un viño branco artesanal do Ribeiro e unha primeira sidra galega de produción propia.
+            </p>
+          </div>
+        </div>
+
+        <div class="signature-card">
+          <div class="signature-art" aria-hidden="true">
+            <svg viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración lineal de paisaxe e viñedo galego">
+              <rect width="560" height="320" rx="24" fill="url(#bg)"/>
+              <defs>
+                <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#f7f5ef"/>
+                  <stop offset="100%" stop-color="#edf0e2"/>
+                </linearGradient>
+              </defs>
+              <circle cx="410" cy="88" r="28" fill="#d8cf77" opacity=".9"/>
+              <path d="M46 234C116 197 170 174 214 174C270 174 310 193 364 191C417 189 470 166 520 152" stroke="#afbb70" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M50 248C105 232 168 220 246 220C302 220 358 225 430 208C469 199 497 191 520 181" stroke="#bac58a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <path d="M160 205L205 160L245 203" stroke="#8da04c" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M185 168V226" stroke="#8da04c" stroke-width="4" stroke-linecap="round"/>
+              <rect x="172" y="197" width="28" height="29" rx="4" stroke="#8da04c" stroke-width="4" fill="none"/>
+              <path d="M72 250C101 238 120 228 140 216" stroke="#c0c89b" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M96 262C125 248 148 238 171 226" stroke="#c0c89b" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M272 256C291 236 306 214 318 190" stroke="#a8b56b" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M326 246C343 223 357 203 375 173" stroke="#afbb70" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M356 260C382 233 407 202 425 170" stroke="#b8c582" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M0 280C130 250 255 257 560 278" stroke="#d5dcc2" stroke-width="3" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-band" id="proxectos">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Proxectos</span>
+          <h2>Dúas elaboracións artesanais nacidas desde Vilaverde</h2>
+          <p>
+            O viño branco Chousal e a sidra Vilaverde son dous proxectos distintos, pero comparten a mesma intención:
+            facer algo pequeno, honesto e moi coidado, cunha relación directa coa paisaxe, coa memoria familiar e co proceso artesanal.
+          </p>
+        </div>
+
+        <div class="projects-stack">
+          <article class="project-card wine">
+            <div class="project-visual" aria-hidden="true">
+              <svg viewBox="0 0 420 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración editorial dunha botella de viño branco e acios de uva">
+                <rect width="420" height="360" rx="28" fill="#f7f7ef"/>
+                <ellipse cx="212" cy="314" rx="146" ry="20" fill="#d4dcb5" opacity=".45"/>
+                <rect x="185" y="52" width="46" height="50" rx="10" fill="#8a8a73"/>
+                <path d="M176 98H240L262 264C264 283 251 298 231 298H185C165 298 152 283 154 264L176 98Z" fill="#f1f1e8" stroke="#7f8967" stroke-width="4"/>
+                <path d="M182 112H234L252 258C253 271 244 282 230 282H186C172 282 163 271 164 258L182 112Z" fill="#d7d894" opacity=".75"/>
+                <rect x="168" y="166" width="95" height="56" rx="10" fill="#f8f6ee" stroke="#aab470" stroke-width="3"/>
+                <path d="M186 194C195 184 211 181 225 186C236 190 242 200 244 209" stroke="#86973d" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <circle cx="122" cy="266" r="18" fill="#b4bd69"/>
+                <circle cx="144" cy="251" r="18" fill="#c2cb78"/>
+                <circle cx="164" cy="270" r="18" fill="#aab45d"/>
+                <circle cx="142" cy="287" r="18" fill="#d1d98d"/>
+                <circle cx="120" cy="302" r="18" fill="#bec772"/>
+                <path d="M140 231C149 217 157 207 169 198" stroke="#8fa045" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M96 255C77 248 66 235 54 216" stroke="#9dab5f" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M74 231C57 229 41 223 27 211" stroke="#b3be76" stroke-width="3" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <div class="project-content">
+              <span class="eyebrow">Viño branco artesanal</span>
+              <h3>Chousal</h3>
+              <p>
+                Chousal é un viño branco feito por primeira vez en setembro de 2024 e embotellado un ano despois.
+                Naceu como un proxecto moi pequeno e persoal, elaborado de maneira totalmente artesanal e cunha primeira tirada de só 120 botellas.
+              </p>
+              <p>
+                A orixe deste viño está en Vilaverde, o pobo no que naceu meu pai, e tamén nun proceso compartido con Paco, un gran viticultor da zona,
+                que me cedeu parte das uvas que descartara daquela colleita. A partir de aí, o proxecto tomou forma cunha vontade clara: facer algo coidado,
+                honesto e con identidade propia.
+              </p>
+
+              <div class="mini-title">Elaboración</div>
+              <ul class="detail-list">
+                <li>Feito cunha prensa de madeira e cun proceso totalmente artesanal.</li>
+                <li>Maduración en depósitos de aceiro inoxidable ata o embotellado.</li>
+                <li>Producción moi limitada, pensada máis como proxecto persoal ca como produto de volume.</li>
+              </ul>
+
+              <div class="mini-title">Variedades empregadas</div>
+              <div class="tag-list" aria-label="Variedades de uva do proxecto Chousal">
+                <span class="tag">Godello</span>
+                <span class="tag">Treixadura</span>
+                <span class="tag">Caíño branco</span>
+                <span class="tag">Albariño</span>
+              </div>
+
+              <p>
+                Hoxe aínda quedan algunhas botellas desa primeira tirada, e aínda que non hai unha nova elaboración prevista a curto prazo,
+                o proxecto segue aberto ao futuro como unha peza moi especial dentro desta historia persoal.
+              </p>
+            </div>
+          </article>
+
+          <article class="project-card cider">
+            <div class="project-visual" aria-hidden="true">
+              <svg viewBox="0 0 420 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración editorial dunha botella de sidra e mazás">
+                <rect width="420" height="360" rx="28" fill="#f7f7ef"/>
+                <ellipse cx="216" cy="316" rx="148" ry="20" fill="#d4dcb5" opacity=".45"/>
+                <rect x="188" y="48" width="40" height="42" rx="9" fill="#827f63"/>
+                <path d="M180 86H236L256 280C257 292 248 302 236 302H180C168 302 159 292 160 280L180 86Z" fill="#8faa31" stroke="#6a7e1d" stroke-width="4"/>
+                <rect x="171" y="158" width="78" height="60" rx="10" fill="#eef1df" stroke="#a8b56b" stroke-width="3"/>
+                <path d="M193 186C203 177 218 176 230 181C239 185 245 193 247 204" stroke="#708621" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <circle cx="112" cy="266" r="26" fill="#cad67b"/>
+                <circle cx="150" cy="248" r="26" fill="#aebb57"/>
+                <circle cx="170" cy="286" r="26" fill="#c5d17a"/>
+                <circle cx="132" cy="302" r="26" fill="#d9e390"/>
+                <path d="M112 235C115 224 122 214 132 208" stroke="#8ea047" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M149 218C154 205 164 197 176 191" stroke="#8ea047" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M76 273C61 266 49 255 39 241" stroke="#aab96a" stroke-width="4" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <div class="project-content">
+              <span class="eyebrow">Primeira tirada prevista para este ano</span>
+              <h3>Vilaverde</h3>
+              <p>
+                Vilaverde é o nome da sidra que quero facer por primeira vez este ano, previsiblemente no mes de outubro.
+                É un proxecto novo, creado por min, que nace da miña afinidade co mundo da sidra e das viaxes a Asturias, onde fun descubrindo tanto a bebida como toda a cultura que a rodea.
+              </p>
+              <p>
+                Hai tres anos decidín plantar doce maceiras sidreiras nunha pequena finca dos meus pais.
+                As árbores, traídas dun viveiro asturiano, pertencen ás variedades amariega, verdialona, raxao e regona.
+                Agora que comezan a dar froito, o obxectivo é facer un primeiro experimento e obter os primeiros litros dunha sidra moi artesanal.
+              </p>
+
+              <div class="mini-title">Proceso previsto</div>
+              <ul class="detail-list">
+                <li>Elaboración artesanal, seguindo unha filosofía de pequena escala e moito coidado.</li>
+                <li>Prensado e fermentación cun proceso semellante ao do viño, pero con maduración en depósitos de cervexa.</li>
+                <li>Unha primeira colleita entendida como proba, aprendizaxe e punto de partida.</li>
+              </ul>
+
+              <div class="mini-title">Variedades de maceira</div>
+              <div class="tag-list" aria-label="Variedades de mazá sidreira do proxecto Vilaverde">
+                <span class="tag">Amariega</span>
+                <span class="tag">Verdialona</span>
+                <span class="tag">Raxao</span>
+                <span class="tag">Regona</span>
+              </div>
+
+              <p>
+                Máis ca unha produción grande, Vilaverde busca capturar unha idea: facer unha sidra propia, nacida en Galicia,
+                pero inspirada tamén por esa conexión natural e paisaxística que sempre vin entre Asturias e a nosa terra.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="visitas">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">A bodega e o proxecto</span>
+          <h2>Un lugar para coñecer a historia detrás de cada elaboración</h2>
+          <p>
+            A idea é que quen sinta interese poida coñecer o proxecto de preto: o lugar, a historia familiar, a escala real da produción e a forma artesanal de traballar.
+          </p>
+        </div>
+
+        <div class="visit-grid">
+          <article class="visit-card">
+            <h4>Vilaverde</h4>
+            <p>
+              Vilaverde é a orixe emocional destes proxectos. Alí está a bodega, alí nace unha parte importante da historia familiar e alí cobran sentido tanto o viño Chousal como a sidra Vilaverde.
+            </p>
+          </article>
+          <article class="visit-card">
+            <h4>Visitas e conversa</h4>
+            <p>
+              A web tamén está pensada para abrir contacto: resolver dúbidas, compartir o proxecto e facilitar que quen queira poida coñecer a iniciativa no propio lugar.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-wrap" id="contacto">
+      <div class="container contact-grid">
+        <div>
+          <div class="section-head">
+            <span class="eyebrow">Contacto</span>
+            <h2>Un punto de partida para falar do proxecto</h2>
+            <p>
+              Se queres saber máis sobre Chousal, sobre Vilaverde ou sobre a posibilidade de coñecer o proxecto na bodega,
+              podes escribirme directamente por correo.
+            </p>
+          </div>
+        </div>
+
+        <aside class="contact-card">
+          <div class="contact-list">
+            <div class="contact-item">
+              <div class="icon-box" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H20V18H4V6Z" stroke="currentColor" stroke-width="1.8"/><path d="M4 7L12 13L20 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <strong>Email</strong>
+                <a href="mailto:albertochousal@gmail.com">albertochousal@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="icon-box" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V12L15 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/></svg>
+              </div>
+              <div>
+                <strong>Visitas</strong>
+                <span>Posibilidade de coñecer o proxecto e o lugar baixo consulta previa.</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© 2026 Chousal. Marca persoal e proxectos artesanais.</span>
+      <span>Chousal · Vilaverde · Ribeiro · Galicia</span>
+    </div>
+  </footer>
 </body>
 </html>
