@@ -20,26 +20,20 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      padding: 20px;
     }
 
     h1 {
       font-size: 3rem;
       margin: 0;
+      background: linear-gradient(90deg, #38bdf8, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     p {
       color: #94a3b8;
       font-size: 1.2rem;
-    }
-
-    .btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #38bdf8;
-      color: black;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
     }
 
     section {
@@ -53,10 +47,17 @@
     }
 
     .card {
-      background: #1e293b;
-      padding: 15px;
-      border-radius: 10px;
+      background: rgba(30, 41, 59, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 12px;
       margin-top: 10px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
     }
   </style>
 </head>
@@ -66,23 +67,29 @@
 <header>
   <h1>Hola, soy Chousal</h1>
   <p>Bienvenido a mi web personal</p>
-  <a class="btn" href="https://github.com/albertochousal-afk" target="_blank">Mi GitHub</a>
 </header>
 
 <section>
   <h2>Sobre mí</h2>
-  <p>Soy un desarrollador creando mi primera web con GitHub Pages.</p>
+  <div class="card">
+    Soy un desarrollador creando mi primera web con GitHub Pages.
+  </div>
 </section>
 
 <section>
   <h2>Proyectos</h2>
-  <div class="card">📁 Proyecto 1 (próximamente)</div>
-  <div class="card">📁 Proyecto 2 (próximamente)</div>
+  <div class="card" style="font-size: 1.1rem; line-height: 1.6;">
+    👋 <strong>¡Hola, soy Chousal!</strong><br><br>
+    Muy pronto iré publicando aquí los proyectos en los que estoy trabajando.<br>
+    Esta web será el lugar donde muestre mis ideas, experimentos y creaciones.
+  </div>
 </section>
 
 <section>
   <h2>Contacto</h2>
-  <div class="card">📧 Puedes contactarme más adelante</div>
+  <div class="card">
+    📧 Disponible pronto
+  </div>
 </section>
 
 </body>
